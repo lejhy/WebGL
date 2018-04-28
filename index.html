@@ -1,98 +1,101 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WebGL</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WebGL</title>
 </head>
+
 <body>
-    <div id="app"></div>
-    <canvas id="webgl" width="800" height="600">
-        Come on! Update that browser...
-    </canvas>
+  <div id="app"></div>
+  <canvas id="webgl" width="800" height="600">
+    Come on! Update that browser...
+  </canvas>
 
-    <script src="main.js"></script>
+  <script src="main.js"></script>
 
-    <script id="vertShader" type="notjs">
-        attribute vec4 position;
-        attribute vec4 color;
+  <script id="vertShader" type="notjs">
+    attribute vec4 position;
+    attribute vec4 color;
 
-        varying vec4 f_color;
+    varying vec4 f_color;
 
-        void main() {
-            gl_Position = position;
-            f_color = color;
+    void main() {
+      gl_Position = position;
+      f_color = color;
 
-        }
-    </script>
+    }
+  </script>
 
-    <script id="fragShader" type="notjs">
+  <script id="fragShader" type="notjs">
 
-        precision mediump float;
-        varying vec4 f_color;
+    precision mediump float;
+    varying vec4 f_color;
 
-        void main() {
-            gl_FragColor = f_color;
-        }
-    </script>
+    void main() {
+      gl_FragColor = f_color;
+    }
+  </script>
 
-    <script>
-        var canvas = document.getElementById("webgl");
-        var gl = canvas.getContext("webgl2");
+  <script>
+    var canvas = document.getElementById("webgl");
+    var gl = canvas.getContext("webgl2");
 
-        var data = new Float32Array([
-            0.0, 0.5, 1.0, 0.0, 0.0, 1.0,
-            -0.5, -0.5, 0.0, 1.0, 0.0, 1.0,
-            0.5, -0.5, 0.0, 0.0, 1.0, 1.0
-        ]);
+    var data = new Float32Array([
+      0.0, 0.5, 1.0, 0.0, 0.0, 1.0,
+      -0.5, -0.5, 0.0, 1.0, 0.0, 1.0,
+      0.5, -0.5, 0.0, 0.0, 1.0, 1.0
+    ]);
 
-        gl.clearColor(0.0, 0.0, 0.0, 1.0);
+    gl.clearColor(0.0, 0.0, 0.0, 1.0);
 
-        var vertShader = gl.createShader(gl.VERTEX_SHADER);
-        gl.shaderSource(vertShader, document.getElementById("vertShader").text);
-        gl.compileShader(vertShader);
-        console.log(gl.getShaderParameter(vertShader, gl.COMPILE_STATUS));
-        console.log(gl.getShaderInfoLog(vertShader));
+    var vertShader = gl.createShader(gl.VERTEX_SHADER);
+    gl.shaderSource(vertShader, document.getElementById("vertShader").text);
+    gl.compileShader(vertShader);
+    console.log(gl.getShaderParameter(vertShader, gl.COMPILE_STATUS));
+    console.log(gl.getShaderInfoLog(vertShader));
 
-        var fragShader = gl.createShader(gl.FRAGMENT_SHADER);
-        gl.shaderSource(fragShader, document.getElementById("fragShader").text);
-        gl.compileShader(fragShader);
-        console.log(gl.getShaderParameter(fragShader, gl.COMPILE_STATUS));
-        console.log(gl.getShaderInfoLog(fragShader));
+    var fragShader = gl.createShader(gl.FRAGMENT_SHADER);
+    gl.shaderSource(fragShader, document.getElementById("fragShader").text);
+    gl.compileShader(fragShader);
+    console.log(gl.getShaderParameter(fragShader, gl.COMPILE_STATUS));
+    console.log(gl.getShaderInfoLog(fragShader));
 
-        var program = gl.createProgram();
-        gl.attachShader(program, vertShader);
-        gl.attachShader(program, fragShader);
-        gl.linkProgram(program);
-        console.log(gl.getProgramParameter(program, gl.LINK_STATUS));
+    var program = gl.createProgram();
+    gl.attachShader(program, vertShader);
+    gl.attachShader(program, fragShader);
+    gl.linkProgram(program);
+    console.log(gl.getProgramParameter(program, gl.LINK_STATUS));
 
-        var posAttribLocation = gl.getAttribLocation(program, "position");
-        var colAttribLocation = gl.getAttribLocation(program, "color");
-        var buffer = gl.createBuffer();
-        gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
-        gl.bufferData(gl.ARRAY_BUFFER, data, gl.STATIC_DRAW);
+    var posAttribLocation = gl.getAttribLocation(program, "position");
+    var colAttribLocation = gl.getAttribLocation(program, "color");
+    var buffer = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
+    gl.bufferData(gl.ARRAY_BUFFER, data, gl.STATIC_DRAW);
 
-        gl.clear(gl.COLOR_BUFFER_BIT);
-        gl.useProgram(program);
-        gl.enableVertexAttribArray(posAttribLocation);
-        gl.vertexAttribPointer(
-            posAttribLocation, 
-            2,
-            gl.FLOAT, 
-            false,
-            6 * Float32Array.BYTES_PER_ELEMENT,
-            0 * Float32Array.BYTES_PER_ELEMENT
-        );
-        gl.enableVertexAttribArray(colAttribLocation);
-        gl.vertexAttribPointer(
-            colAttribLocation,
-            4,
-            gl.FLOAT,
-            false,
-            6 * Float32Array.BYTES_PER_ELEMENT,
-            2 * Float32Array.BYTES_PER_ELEMENT
-        );
-        gl.drawArrays(gl.TRIANGLES, 0, 3);
-    </script>
+    gl.clear(gl.COLOR_BUFFER_BIT);
+    gl.useProgram(program);
+    gl.enableVertexAttribArray(posAttribLocation);
+    gl.vertexAttribPointer(
+      posAttribLocation,
+      2,
+      gl.FLOAT,
+      false,
+      6 * Float32Array.BYTES_PER_ELEMENT,
+      0 * Float32Array.BYTES_PER_ELEMENT
+    );
+    gl.enableVertexAttribArray(colAttribLocation);
+    gl.vertexAttribPointer(
+      colAttribLocation,
+      4,
+      gl.FLOAT,
+      false,
+      6 * Float32Array.BYTES_PER_ELEMENT,
+      2 * Float32Array.BYTES_PER_ELEMENT
+    );
+    gl.drawArrays(gl.TRIANGLES, 0, 3);
+  </script>
 </body>
+
 </html>

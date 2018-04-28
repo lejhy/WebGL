@@ -18,7 +18,8 @@
   },
   "homepage": "https://github.com/lejhy/WebGL#readme",
   "dependencies": {
-    "vue": "^2.5.16"
+    "vue": "^2.5.16",
+    "vue-head": "^2.0.12"
   },
   "devDependencies": {
     "vue-loader": "^14.2.2",
