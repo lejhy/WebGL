@@ -1,0 +1,19 @@
+{
+  "name": "webgl",
+  "version": "1.0.0",
+  "description": "WebGL Playground",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lejhy/WebGL.git"
+  },
+  "author": "lejhy",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lejhy/WebGL/issues"
+  },
+  "homepage": "https://github.com/lejhy/WebGL#readme"
+}
