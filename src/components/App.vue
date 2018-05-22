@@ -1,12 +1,14 @@
 <template>
   <div class="app">
     <NavBar v-bind="navBarData" v-on:link="route($event)"/>
+    <WebGL/>
     <div class="content" v-html="content" />
   </div>
 </template>
 
 <script>
 import NavBar from "./NavBar.vue";
+import WebGL from "./WebGL.vue";
 
 export default {
   name: 'App',
@@ -37,7 +39,8 @@ export default {
     }
   },
   components: {
-    'NavBar': NavBar
+    'NavBar': NavBar,
+    'WebGL': WebGL
   }
 }
 </script>

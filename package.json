@@ -22,6 +22,7 @@
     "vue-head": "^2.0.12"
   },
   "devDependencies": {
+    "raw-loader": "^0.5.1",
     "vue-loader": "^14.2.2",
     "vue-template-compiler": "^2.5.16",
     "webpack": "^4.6.0",
