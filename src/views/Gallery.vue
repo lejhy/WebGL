@@ -14,16 +14,35 @@
   export default {
     name: "Gallery.vue",
     data: function() {
+      let imageMap = new Map();
+      webpack.env.GALLERY.forEach(file => {
+        let isThumbnail = file.match(".thumb.");
+        let name = file.match(/[^.]+/)[0];
+        let extension = file.match(/\.\w+$/)[0];
+
+        let image;
+        if(imageMap.has(name)) {
+          image = imageMap.get(name);
+        } else {
+          image = {};
+          imageMap.set(name, image);
+        }
+
+        if(isThumbnail) {
+          image.thumbnail = "/gallery/"+name+".thumb"+extension;
+        } else {
+          image.full = "/gallery/"+name+""+extension;
+        }
+      });
+
       let images = [];
-      webpack.env.GALLERY.forEach(image => {
-        if(image.match(".thumb.")) {
-          let name = image.match(/[^.]+/)[0];
-          let extension = image.match(/\.\w+$/)[0];
+      imageMap.forEach((value, name) => {
+        if(value.thumbnail && value.full) {
           images.push({
             name: name,
-            thumbnail: "/gallery/"+name+".thumb"+extension,
-            full: "/gallery/"+name+extension,
-          });
+            thumbnail: value.thumbnail,
+            full: value.full
+          })
         }
       });
       return {
